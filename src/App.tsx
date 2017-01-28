@@ -1,7 +1,9 @@
 import * as React from "react";
+import {Col, Row, Grid, Panel, PageHeader, ListGroup} from "react-bootstrap";
 
 import "./App.css"
 import {Recipe} from './Recipe';
+import {AddRecipeDialog} from './Add-recipe-dialog';
 
 export interface AppProps {
 //    todo: get recipe array from __localStorage
@@ -18,16 +20,33 @@ export class App extends React.Component<AppProps, AppState> {
     //todo: use an Array.map to initialise all recipes
     public render(): JSX.Element {
         return (
-            <main>
-                <div>
-                    <ul>
-                        <li><Recipe/></li>
-                    </ul>
-                </div>
-                <div><label label="Add Recipe">
-                    <button className="Add-recipe"/>
-                </label></div>
-            </main>
+            <div>
+                <header>
+                    <Grid>
+                        <Row>
+                            <Col sm={12}><PageHeader className="App-heading">Recipe Box</PageHeader></Col>
+                        </Row>
+                    </Grid>
+                </header>
+                <main>
+                    <Grid>
+                        <Row>
+                            <Col sm={12}>
+                                <Panel>
+                                    <ListGroup componentClass="ul">
+                                        <Recipe/>
+                                    </ListGroup>
+                                </Panel>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col sm={12}>
+                                <AddRecipeDialog/>
+                            </Col>
+                        </Row>
+                    </Grid>
+                </main>
+            </div>
         );
     }
 }

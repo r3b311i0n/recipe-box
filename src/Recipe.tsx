@@ -1,4 +1,5 @@
 import * as React from "react";
+import {ListGroupItem} from "react-bootstrap";
 
 export interface RecipeProps {
 }
@@ -13,10 +14,8 @@ export class Recipe extends React.Component<RecipeProps, RecipeState> {
 
     public render(): JSX.Element {
         return (
-            <div>
-                <p className="Recipe-name"></p>
-            </div>
-        //    todo: create ingredients list with edit and delete buttons and wrap them around an if selection
+            <ListGroupItem>recipe placeholder</ListGroupItem>
+            //    todo: create ingredients list with edit and delete buttons and wrap them around an if selection
         );
     }
 }
