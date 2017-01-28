@@ -24,14 +24,15 @@ export class App extends React.Component<AppProps, AppState> {
                 <header>
                     <Grid>
                         <Row>
-                            <Col sm={12}><PageHeader className="App-heading">Recipe Box</PageHeader></Col>
+                            <Col sm={12} md={12} lg={12}><PageHeader
+                                className="App-heading">Recipe Box</PageHeader></Col>
                         </Row>
                     </Grid>
                 </header>
                 <main>
                     <Grid>
                         <Row>
-                            <Col sm={12}>
+                            <Col sm={12} md={12} lg={12}>
                                 <Panel>
                                     <ListGroup componentClass="ul">
                                         <Recipe/>
@@ -40,7 +41,7 @@ export class App extends React.Component<AppProps, AppState> {
                             </Col>
                         </Row>
                         <Row>
-                            <Col sm={12}>
+                            <Col sm={12} md={12} lg={12}>
                                 <AddRecipeDialog/>
                             </Col>
                         </Row>

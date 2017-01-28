@@ -19,4 +19,3 @@ export class Recipe extends React.Component<RecipeProps, RecipeState> {
         );
     }
 }
-

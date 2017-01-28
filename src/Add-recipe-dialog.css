@@ -1,0 +1,13 @@
+.Recipe-dialog-block {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.Add-dialog-btn {
+    width: 12rem;
+}
+
+.Close-dialog-btn {
+    width: 12rem;
+}
