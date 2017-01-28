@@ -62,7 +62,7 @@ export class AddRecipeDialog extends React.Component<AddRecipeDialogProps, AddRe
                             </FormGroup>
                         </form>
                         <div className="Recipe-dialog-block">
-                            <Button className="Add-dialog-btn" bsStyle="success" bsSize="large">Add</Button>
+                            <Button className="Add-dialog-btn" disabled={true} bsStyle="success" bsSize="large">Add</Button>
                             <Button className="Close-dialog-btn" bsSize="large" bsStyle="danger"
                                     onClick={this.closeAddRecipe}>Close</Button>
                         </div>
