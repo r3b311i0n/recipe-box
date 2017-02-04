@@ -5,10 +5,8 @@ import "./Add-recipe-dialog.css";
 
 interface AddRecipeDialogState {
     isAddRecipeDialogVisible: boolean,
-    areIngredientsEmpty: boolean,
-    showAddRecipe: () => void,
-    closeAddRecipe: () => void,
-    checkEmptyIngredients: (e: any) => void
+    ingredientsString: string,
+    areIngredientsEmpty: boolean
 }
 
 export interface AddRecipeDialogProps {
@@ -21,13 +19,14 @@ export class AddRecipeDialog extends React.Component<AddRecipeDialogProps, AddRe
         this.state = {
             isAddRecipeDialogVisible: false,
             areIngredientsEmpty: true,
-            showAddRecipe: this.showAddRecipe,
-            checkEmptyIngredients: this.checkEmptyIngredients,
-            closeAddRecipe: this.closeAddRecipe
+            ingredientsString: ""
         }
     }
 
     showAddRecipe = (): void => {
+        this.setState({ingredientsString: ""});
+        this.setState({areIngredientsEmpty: true});
+
         this.setState({isAddRecipeDialogVisible: true});
     };
 
@@ -42,6 +41,12 @@ export class AddRecipeDialog extends React.Component<AddRecipeDialogProps, AddRe
         else {
             this.setState({areIngredientsEmpty: true});
         }
+
+        this.setState({ingredientsString: e.target.value});
+    };
+
+    handleAddRecipeDialogBtn = (): void => {
+        console.log(this.state.ingredientsString);
     };
 
     public render(): JSX.Element {
@@ -76,7 +81,8 @@ export class AddRecipeDialog extends React.Component<AddRecipeDialogProps, AddRe
                         </form>
                         <div className="Recipe-dialog-block">
                             <Button className="Add-dialog-btn" disabled={this.state.areIngredientsEmpty}
-                                    bsStyle="success" bsSize="large">Add</Button>
+                                    bsStyle="success" bsSize="large"
+                                    onClick={this.handleAddRecipeDialogBtn}>Add</Button>
                             <Button className="Close-dialog-btn" bsSize="large" bsStyle="danger"
                                     onClick={this.closeAddRecipe}>Close</Button>
                         </div>
