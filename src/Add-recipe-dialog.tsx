@@ -5,8 +5,10 @@ import "./Add-recipe-dialog.css";
 
 interface AddRecipeDialogState {
     isAddRecipeDialogVisible: boolean,
+    areIngredientsEmpty: boolean,
     showAddRecipe: () => void,
-    closeAddRecipe: () => void
+    closeAddRecipe: () => void,
+    checkEmptyIngredients: (e: any) => void
 }
 
 export interface AddRecipeDialogProps {
@@ -18,17 +20,28 @@ export class AddRecipeDialog extends React.Component<AddRecipeDialogProps, AddRe
 
         this.state = {
             isAddRecipeDialogVisible: false,
+            areIngredientsEmpty: true,
             showAddRecipe: this.showAddRecipe,
+            checkEmptyIngredients: this.checkEmptyIngredients,
             closeAddRecipe: this.closeAddRecipe
         }
     }
 
-    showAddRecipe = () => {
+    showAddRecipe = (): void => {
         this.setState({isAddRecipeDialogVisible: true});
     };
 
-    closeAddRecipe = () => {
+    closeAddRecipe = (): void => {
         this.setState({isAddRecipeDialogVisible: false});
+    };
+
+    checkEmptyIngredients = (e: any): void => {
+        if (e.target.value.length > 0) {
+            this.setState({areIngredientsEmpty: false});
+        }
+        else {
+            this.setState({areIngredientsEmpty: true});
+        }
     };
 
     public render(): JSX.Element {
@@ -58,11 +71,12 @@ export class AddRecipeDialog extends React.Component<AddRecipeDialogProps, AddRe
                             <FormGroup controlId="recipeIngredientsText">
                                 <ControlLabel>Ingredients:</ControlLabel>
                                 <FormControl componentClass="textArea" style={{resize: "none", height: "10em"}}
-                                             placeholder="Enter Ingredients"/>
+                                             placeholder="Enter Ingredients" onChange={this.checkEmptyIngredients}/>
                             </FormGroup>
                         </form>
                         <div className="Recipe-dialog-block">
-                            <Button className="Add-dialog-btn" disabled={true} bsStyle="success" bsSize="large">Add</Button>
+                            <Button className="Add-dialog-btn" disabled={this.state.areIngredientsEmpty}
+                                    bsStyle="success" bsSize="large">Add</Button>
                             <Button className="Close-dialog-btn" bsSize="large" bsStyle="danger"
                                     onClick={this.closeAddRecipe}>Close</Button>
                         </div>
