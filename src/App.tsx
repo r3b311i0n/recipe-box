@@ -1,18 +1,17 @@
-import * as React from "react";
-import {Col, Row, Grid, Panel, PageHeader, ListGroup} from "react-bootstrap";
-
-import "./App.css"
+import * as React from 'react';
+import {Col, Row, Grid, Panel, PageHeader, ListGroup} from 'react-bootstrap';
+import './App.css';
 import {Recipe} from './Recipe';
 import {AddRecipeDialog} from './Add-recipe-dialog';
 
-export interface AppProps {
+export interface IAppProps {
 //    todo: get recipe array from __localStorage
 }
 
-interface AppState {
+interface IAppState {
 }
 
-export class App extends React.Component<AppProps, AppState> {
+export class App extends React.Component<IAppProps, IAppState> {
     constructor(props: any) {
         super(props);
     }

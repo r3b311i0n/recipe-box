@@ -1,13 +1,13 @@
-import * as React from "react";
-import {ListGroupItem} from "react-bootstrap";
+import * as React from 'react';
+import {ListGroupItem} from 'react-bootstrap';
 
-export interface RecipeProps {
+export interface IRecipeProps {
 }
 
-interface RecipeState {
+interface IRecipeState {
 }
 
-export class Recipe extends React.Component<RecipeProps, RecipeState> {
+export class Recipe extends React.Component<IRecipeProps, IRecipeState> {
     constructor(props: any) {
         super(props);
     }

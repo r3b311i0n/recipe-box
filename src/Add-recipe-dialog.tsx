@@ -1,53 +1,75 @@
-import * as React from "react";
-import {Modal, Grid, Row, Col, Button, FormControl, FormGroup, ControlLabel} from "react-bootstrap";
+import * as React from 'react';
+import {Modal, Grid, Row, Col, Button, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
+import './Add-recipe-dialog.css';
 
-import "./Add-recipe-dialog.css";
-
-interface AddRecipeDialogState {
-    isAddRecipeDialogVisible: boolean,
-    ingredientsString: string,
-    areIngredientsEmpty: boolean
+interface IAddRecipeDialogState {
+    isAddRecipeDialogVisible: boolean;
+    ingredientsString: string;
+    recipeNameString: string;
+    emptyFields: boolean;
 }
 
-export interface AddRecipeDialogProps {
+export interface IAddRecipeDialogProps {
 }
 
-export class AddRecipeDialog extends React.Component<AddRecipeDialogProps, AddRecipeDialogState> {
+export class AddRecipeDialog extends React.Component<IAddRecipeDialogProps, IAddRecipeDialogState> {
     constructor(props: any) {
         super(props);
 
         this.state = {
+            emptyFields: true,
+            ingredientsString: "",
             isAddRecipeDialogVisible: false,
-            areIngredientsEmpty: true,
-            ingredientsString: ""
-        }
+            recipeNameString: "",
+        };
     }
 
-    showAddRecipe = (): void => {
+    private showAddRecipe = (): void => {
         this.setState({ingredientsString: ""});
-        this.setState({areIngredientsEmpty: true});
+        this.setState({recipeNameString: ""});
+        this.setState({emptyFields: true});
 
         this.setState({isAddRecipeDialogVisible: true});
     };
 
-    closeAddRecipe = (): void => {
+    private closeAddRecipe = (): void => {
         this.setState({isAddRecipeDialogVisible: false});
     };
 
-    checkEmptyIngredients = (e: any): void => {
-        if (e.target.value.length > 0) {
-            this.setState({areIngredientsEmpty: false});
+    private setIngredients = (e: any): void => {
+        this.setState({ingredientsString: e.target.value}, () => {
+            this.checkEmptyFields();
+        });
+    };
+
+    private setRecipeName = (e: any): void => {
+        this.setState({recipeNameString: e.target.value}, () => {
+            this.checkEmptyFields();
+        });
+    };
+
+    private checkEmptyFields(): void {
+        const noSpaceRecipeString = this.state.recipeNameString.trim();
+        const noSpaceIngredientsString = this.state.ingredientsString.trim();
+
+        if (noSpaceRecipeString.length > 0 && noSpaceIngredientsString.length > 0) {
+            this.setState({emptyFields: false});
         }
         else {
-            this.setState({areIngredientsEmpty: true});
+            this.setState({emptyFields: true});
         }
+    }
 
-        this.setState({ingredientsString: e.target.value});
+    private handleAddRecipeDialogBtn = (): void => {
+        const ingredientsArray = this.state.ingredientsString.split(",");
+        const recipeObject = {
+            ingredients: ingredientsArray,
+            name: this.state.recipeNameString,
+        };
+        console.log(recipeObject);
     };
 
-    handleAddRecipeDialogBtn = (): void => {
-        console.log(this.state.ingredientsString);
-    };
+    // todo: make new component from modal code for use in recipe editing
 
     public render(): JSX.Element {
         return (
@@ -71,16 +93,17 @@ export class AddRecipeDialog extends React.Component<AddRecipeDialogProps, AddRe
                         <form>
                             <FormGroup controlId="recipeNameText">
                                 <ControlLabel>Recipe Name:</ControlLabel>
-                                <FormControl type="text" placeholder="Enter Recipe Name"/>
+                                <FormControl type="text" placeholder="Enter Recipe Name"
+                                             onKeyUp={this.setRecipeName}/>
                             </FormGroup>
                             <FormGroup controlId="recipeIngredientsText">
                                 <ControlLabel>Ingredients:</ControlLabel>
                                 <FormControl componentClass="textArea" style={{resize: "none", height: "10em"}}
-                                             placeholder="Enter Ingredients" onChange={this.checkEmptyIngredients}/>
+                                             placeholder="Enter Ingredients" onKeyUp={this.setIngredients}/>
                             </FormGroup>
                         </form>
                         <div className="Recipe-dialog-block">
-                            <Button className="Add-dialog-btn" disabled={this.state.areIngredientsEmpty}
+                            <Button className="Add-dialog-btn" disabled={this.state.emptyFields}
                                     bsStyle="success" bsSize="large"
                                     onClick={this.handleAddRecipeDialogBtn}>Add</Button>
                             <Button className="Close-dialog-btn" bsSize="large" bsStyle="danger"
