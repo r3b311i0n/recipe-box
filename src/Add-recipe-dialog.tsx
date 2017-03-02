@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {Grid, Row, Col, Button} from 'react-bootstrap';
+import {Button, Col, Grid, Row} from 'react-bootstrap';
 import './Add-recipe-dialog.css';
 import {RecipeControlDialog} from './Recipe-control-dialog';
 
-interface IAddRecipeDialogState {
-    isRecipeControlDialogVisible: boolean;
+export interface IAddRecipeDialogProps {
 }
 
-export interface IAddRecipeDialogProps {
+interface IAddRecipeDialogState {
+    isRecipeControlDialogVisible: boolean;
 }
 
 export class AddRecipeDialog extends React.Component<IAddRecipeDialogProps, IAddRecipeDialogState> {
@@ -41,7 +41,7 @@ export class AddRecipeDialog extends React.Component<IAddRecipeDialogProps, IAdd
                     </Row>
                 </Grid>
                 <RecipeControlDialog isRecipeControlDialogVisible={this.state.isRecipeControlDialogVisible}
-                                     closeRecipeControl={this.closeRecipeControl}/>
+                                     closeRecipeControl={this.closeRecipeControl} dialogType="Add"/>
             </div>
         );
     }

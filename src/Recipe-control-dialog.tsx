@@ -1,8 +1,9 @@
 import * as React from 'react';
-import {Modal, Button, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
+import {Button, ControlLabel, FormControl, FormGroup, Modal} from 'react-bootstrap';
 
 export interface IRecipeControlDialogProps {
     closeRecipeControl: () => void;
+    dialogType: string;
     isRecipeControlDialogVisible: boolean;
 }
 
@@ -20,7 +21,7 @@ export class RecipeControlDialog extends React.Component<IRecipeControlDialogPro
             emptyFields: true,
             ingredientsString: "",
             recipeNameString: "",
-        }
+        };
     }
 
     private setIngredients = (e: any): void => {
@@ -79,7 +80,7 @@ export class RecipeControlDialog extends React.Component<IRecipeControlDialogPro
                     <div className="Recipe-dialog-block">
                         <Button className="Add-dialog-btn" disabled={this.state.emptyFields}
                                 bsStyle="success" bsSize="large"
-                                onClick={this.handleRecipeControlDialogBtn}>Add</Button>
+                                onClick={this.handleRecipeControlDialogBtn}>{this.props.dialogType}</Button>
                         <Button className="Close-dialog-btn" bsSize="large" bsStyle="danger"
                                 onClick={this.props.closeRecipeControl}>Close</Button>
                     </div>
