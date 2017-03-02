@@ -48,14 +48,39 @@ export class RecipeControlDialog extends React.Component<IRecipeControlDialogPro
         }
     }
 
+    private closeDialog(): void {
+        this.setState({emptyFields: true});
+        this.setState({recipeNameString: ""});
+        this.setState({ingredientsString: ""});
+        this.props.closeRecipeControl();
+    }
+
     private handleRecipeControlDialogBtn = (): void => {
-        localStorage.setItem(this.state.recipeNameString, this.state.ingredientsString);
+        const recipeObject = {
+            "RecipeName": this.state.recipeNameString,
+            "IngredientsList": this.state.ingredientsString,
+        };
+        const localRecipeString = localStorage.getItem("RecipeArray");
+        let recipeArray = (localRecipeString) ? JSON.parse(localRecipeString) : [];
+        recipeArray.push(recipeObject);
+        localStorage.setItem("RecipeArray", JSON.stringify(recipeArray));
+        console.log(JSON.parse(localStorage.getItem("RecipeArray")));
+        this.closeDialog();
     };
 
-    public render() {
+    private handleCloseDialogBtn = (): void => {
+        this.closeDialog();
+    };
+
+    private handleModalExit = (): void => {
+        this.closeDialog();
+    };
+
+    public render(): JSX.Element {
         return (
             <Modal
-                onHide={this.props.closeRecipeControl} show={this.props.isRecipeControlDialogVisible}>
+                onHide={this.props.closeRecipeControl} show={this.props.isRecipeControlDialogVisible}
+                onExit={this.handleModalExit}>
                 <Modal.Header>
                     <h3>Enter Recipe Name and Ingredients</h3>
                 </Modal.Header>
@@ -73,11 +98,11 @@ export class RecipeControlDialog extends React.Component<IRecipeControlDialogPro
                         </FormGroup>
                     </form>
                     <div className="Recipe-dialog-block">
-                        <Button className="Add-dialog-btn" disabled={this.state.emptyFields}
+                        <Button className="Add-edit-dialog-btn" disabled={this.state.emptyFields}
                                 bsStyle="success" bsSize="large"
                                 onClick={this.handleRecipeControlDialogBtn}>{this.props.dialogType}</Button>
                         <Button className="Close-dialog-btn" bsSize="large" bsStyle="danger"
-                                onClick={this.props.closeRecipeControl}>Close</Button>
+                                onClick={this.handleCloseDialogBtn}>Close</Button>
                     </div>
                 </Modal.Body>
             </Modal>
