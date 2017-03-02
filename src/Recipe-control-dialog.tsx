@@ -49,12 +49,7 @@ export class RecipeControlDialog extends React.Component<IRecipeControlDialogPro
     }
 
     private handleRecipeControlDialogBtn = (): void => {
-        const ingredientsArray = this.state.ingredientsString.split(",");
-        const recipeObject = {
-            ingredients: ingredientsArray,
-            name: this.state.recipeNameString,
-        };
-        console.log(recipeObject);
+        localStorage.setItem(this.state.recipeNameString, this.state.ingredientsString);
     };
 
     public render() {
