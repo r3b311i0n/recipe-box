@@ -4,6 +4,7 @@ import './Add-recipe-dialog.css';
 import {RecipeControlDialog} from './Recipe-control-dialog';
 
 export interface IAddRecipeDialogProps {
+    refreshRecipeList: () => void;
 }
 
 interface IAddRecipeDialogState {
@@ -40,7 +41,8 @@ export class AddRecipeDialog extends React.Component<IAddRecipeDialogProps, IAdd
                         </Col>
                     </Row>
                 </Grid>
-                <RecipeControlDialog isRecipeControlDialogVisible={this.state.isRecipeControlDialogVisible}
+                <RecipeControlDialog refreshRecipeList={this.props.refreshRecipeList}
+                                     isRecipeControlDialogVisible={this.state.isRecipeControlDialogVisible}
                                      closeRecipeControl={this.closeRecipeControl} dialogType="Add"/>
             </div>
         );

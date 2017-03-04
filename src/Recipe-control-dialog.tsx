@@ -5,6 +5,7 @@ export interface IRecipeControlDialogProps {
     closeRecipeControl: () => void;
     dialogType: string;
     isRecipeControlDialogVisible: boolean;
+    refreshRecipeList: () => void;
 }
 
 interface IRecipeControlDialogState {
@@ -65,6 +66,7 @@ export class RecipeControlDialog extends React.Component<IRecipeControlDialogPro
         recipeArray.push(recipeObject);
         localStorage.setItem("RecipeArray", JSON.stringify(recipeArray));
         console.log(JSON.parse(localStorage.getItem("RecipeArray")));
+        this.props.refreshRecipeList();
         this.closeDialog();
     };
 

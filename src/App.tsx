@@ -1,22 +1,33 @@
 import * as React from 'react';
-import {Col, Grid, ListGroup, PageHeader, Panel, Row} from 'react-bootstrap';
+import {Col, Grid, PageHeader, Panel, Row} from 'react-bootstrap';
 import './App.css';
 import {Recipe} from './Recipe';
 import {AddRecipeDialog} from './Add-recipe-dialog';
 
 export interface IAppProps {
-//    todo: get recipe array from __localStorage
 }
 
 interface IAppState {
+    recipeString: string;
 }
 
 export class App extends React.Component<IAppProps, IAppState> {
     constructor(props: any) {
         super(props);
+        const initialRecipeArray = localStorage.getItem("RecipeArray") ? localStorage.getItem("RecipeArray") : JSON.stringify([{
+                "RecipeName": "Boiled Egg",
+                "Ingredients": "Egg, Water."
+            }]);
+        localStorage.setItem("RecipeArray", initialRecipeArray);
+        this.state = {
+            recipeString: initialRecipeArray,
+        }
     }
 
-    //todo: use an Array.map to initialise all recipes
+    protected refreshRecipeList = (): void => {
+        this.setState({recipeString: localStorage.getItem("RecipeArray")});
+    }
+
     public render(): JSX.Element {
         return (
             <div>
@@ -33,15 +44,13 @@ export class App extends React.Component<IAppProps, IAppState> {
                         <Row>
                             <Col sm={12} md={12} lg={12}>
                                 <Panel>
-                                    <ListGroup componentClass="ul">
-                                        <Recipe/>
-                                    </ListGroup>
+                                    <Recipe recipeString={this.state.recipeString}/>
                                 </Panel>
                             </Col>
                         </Row>
                         <Row>
                             <Col sm={12} md={12} lg={12}>
-                                <AddRecipeDialog/>
+                                <AddRecipeDialog refreshRecipeList={this.refreshRecipeList}/>
                             </Col>
                         </Row>
                     </Grid>
