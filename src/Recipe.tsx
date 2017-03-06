@@ -1,35 +1,49 @@
 import * as React from 'react';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Button, ListGroup, ListGroupItem, Panel} from 'react-bootstrap';
 import './Recipe.css';
 
 export interface IRecipeProps {
-    recipeString: string;
+    eventKey: string;
+    recipeName: string;
+    recipeIngredients: string;
 }
 
 interface IRecipeState {
+    areIngredientsVisible: boolean;
 }
 
 export class Recipe extends React.Component<IRecipeProps, IRecipeState> {
     constructor(props: any) {
         super(props);
+
+        this.state = {
+            areIngredientsVisible: false,
+        }
+        ;
     }
 
-    private initialiseRecipeList(): JSX.Element[] {
-        const recipeArray = JSON.parse(this.props.recipeString);
-        let recipeList: JSX.Element[];
-        recipeList = recipeArray.map((value: any): JSX.Element => {
-            return <ListGroupItem className="Recipe-item" bsStyle="success">{value["RecipeName"]}</ListGroupItem>;
+    private generateIngredientsList(): JSX.Element {
+        const ingredientsArray = this.props.recipeIngredients.split(",");
+        const ingredientsList = ingredientsArray.map((value: string, index: number): JSX.Element => {
+            return <ListGroupItem bsStyle="info" key={index.toString()}>{value.trim()}</ListGroupItem>;
         });
-        return recipeList;
+        return <ListGroup>{ingredientsList}</ListGroup>;
     }
 
-    // todo: pass edit to Recipe-control-dialog
+    private handleIngredientsVisibilityBtn = (): void => {
+        this.setState({areIngredientsVisible: !this.state.areIngredientsVisible});
+    };
+
     public render(): JSX.Element {
         return (
-            <ListGroup componentClass="ul">
-                {this.initialiseRecipeList()}
-            </ListGroup>
-            // todo: create ingredients list with edit and delete buttons and wrap them around an if selection
+            <div>
+                <Button className="Recipe-item" bsStyle="success"
+                        onClick={this.handleIngredientsVisibilityBtn}>{this.props.recipeName}</Button>
+                <Panel collapsible expanded={this.state.areIngredientsVisible}>
+                    {this.generateIngredientsList()}
+                </Panel>
+            </div>
         );
+        // todo: create edit and delete buttons and wrap them around an if selection
     }
 }

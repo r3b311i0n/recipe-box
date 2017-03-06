@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Col, Grid, PageHeader, Panel, Row} from 'react-bootstrap';
+import {Col, Grid, ListGroup, ListGroupItem, PageHeader, Row} from 'react-bootstrap';
 import './App.css';
 import {Recipe} from './Recipe';
 import {AddRecipeBtn} from './Add-recipe-btn';
@@ -14,19 +14,41 @@ interface IAppState {
 export class App extends React.Component<IAppProps, IAppState> {
     constructor(props: any) {
         super(props);
-        const initialRecipeArray = localStorage.getItem("RecipeArray") ? localStorage.getItem("RecipeArray") : JSON.stringify([{
-                "RecipeName": "Boiled Egg",
-                "Ingredients": "Egg, Water."
-            }]);
+        const initialRecipeArray = localStorage.getItem("RecipeArray") ? localStorage.getItem("RecipeArray") : JSON.stringify(
+                [
+                    {
+                        "RecipeName": "Boiled Egg",
+                        "IngredientsList": "Egg, Water"
+                    },
+                    {
+                        "RecipeName": "Coffee",
+                        "IngredientsList": "Coffee Beans, Sugar, Water"
+                    },
+                    {
+                        "RecipeName": "Powerpuff Girls",
+                        "IngredientsList": "Sugar, Spice, Everything Nice"
+                    }
+                ]);
         localStorage.setItem("RecipeArray", initialRecipeArray);
         this.state = {
             recipeString: initialRecipeArray,
         }
     }
 
+    private initialiseRecipeList(): JSX.Element {
+        const recipeArray = JSON.parse(this.state.recipeString);
+        const recipeList = recipeArray.map((value: any, index: number): JSX.Element => {
+            return <ListGroupItem key={value["RecipeName"]}>
+                <Recipe eventKey={index.toString()} recipeName={value["RecipeName"]}
+                        recipeIngredients={value["IngredientsList"]}/>
+            </ListGroupItem>;
+        });
+        return <ListGroup componentClass="ul">{recipeList}</ListGroup>;
+    }
+
     protected refreshRecipeList = (): void => {
         this.setState({recipeString: localStorage.getItem("RecipeArray")});
-    }
+    };
 
     public render(): JSX.Element {
         return (
@@ -43,9 +65,7 @@ export class App extends React.Component<IAppProps, IAppState> {
                     <Grid>
                         <Row>
                             <Col sm={12} md={12} lg={12}>
-                                <Panel>
-                                    <Recipe recipeString={this.state.recipeString}/>
-                                </Panel>
+                                {this.initialiseRecipeList()}
                             </Col>
                         </Row>
                         <Row>
