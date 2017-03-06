@@ -23,13 +23,13 @@ export class Recipe extends React.Component<IRecipeProps, IRecipeState> {
         return recipeList;
     }
 
-    //todo: pass edit to Recipe-control-dialog
+    // todo: pass edit to Recipe-control-dialog
     public render(): JSX.Element {
         return (
             <ListGroup componentClass="ul">
                 {this.initialiseRecipeList()}
             </ListGroup>
-            //    todo: create ingredients list with edit and delete buttons and wrap them around an if selection
+            // todo: create ingredients list with edit and delete buttons and wrap them around an if selection
         );
     }
 }

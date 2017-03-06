@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Col, Grid, PageHeader, Panel, Row} from 'react-bootstrap';
 import './App.css';
 import {Recipe} from './Recipe';
-import {AddRecipeDialog} from './Add-recipe-dialog';
+import {AddRecipeBtn} from './Add-recipe-btn';
 
 export interface IAppProps {
 }
@@ -50,7 +50,7 @@ export class App extends React.Component<IAppProps, IAppState> {
                         </Row>
                         <Row>
                             <Col sm={12} md={12} lg={12}>
-                                <AddRecipeDialog refreshRecipeList={this.refreshRecipeList}/>
+                                <AddRecipeBtn refreshRecipeList={this.refreshRecipeList}/>
                             </Col>
                         </Row>
                     </Grid>
