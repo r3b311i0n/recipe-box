@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Button, ListGroup, ListGroupItem, Panel} from 'react-bootstrap';
 import './Recipe.css';
+import {EditRecipeBtn} from './Edit-recipe-btn';
 
 export interface IRecipeProps {
     eventKey: string;
@@ -18,8 +19,7 @@ export class Recipe extends React.Component<IRecipeProps, IRecipeState> {
 
         this.state = {
             areIngredientsVisible: false,
-        }
-        ;
+        };
     }
 
     private generateIngredientsList(): JSX.Element {
@@ -27,7 +27,8 @@ export class Recipe extends React.Component<IRecipeProps, IRecipeState> {
         const ingredientsList = ingredientsArray.map((value: string, index: number): JSX.Element => {
             return <ListGroupItem bsStyle="info" key={index.toString()}>{value.trim()}</ListGroupItem>;
         });
-        return <ListGroup>{ingredientsList}</ListGroup>;
+        return <ListGroup>{ingredientsList}<EditRecipeBtn recipeIngredients={this.props.recipeIngredients}
+                                                          recipeName={this.props.recipeName}/></ListGroup>;
     }
 
     private handleIngredientsVisibilityBtn = (): void => {
@@ -37,13 +38,13 @@ export class Recipe extends React.Component<IRecipeProps, IRecipeState> {
     public render(): JSX.Element {
         return (
             <div>
-                <Button className="Recipe-item" bsStyle="success"
+                <Button className="Recipe-item" bsStyle="primary"
                         onClick={this.handleIngredientsVisibilityBtn}>{this.props.recipeName}</Button>
                 <Panel collapsible expanded={this.state.areIngredientsVisible}>
                     {this.generateIngredientsList()}
                 </Panel>
             </div>
         );
-        // todo: create edit and delete buttons and wrap them around an if selection
+        // todo: create edit and delete buttons and put them in the above panel
     }
 }

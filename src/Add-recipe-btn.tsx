@@ -19,7 +19,7 @@ export class AddRecipeBtn extends React.Component<IAddRecipeBtnProps, IAddRecipe
         };
     }
 
-    private showRecipeControl = (): void => {
+    private showAddRecipeBtnHandler = (): void => {
         this.setState({isAddRecipeDialogVisible: true});
     };
 
@@ -33,7 +33,7 @@ export class AddRecipeBtn extends React.Component<IAddRecipeBtnProps, IAddRecipe
                 <Grid>
                     <Row>
                         <Col sm={12} md={12} lg={12}>
-                            <Button onClick={this.showRecipeControl} bsStyle="primary"
+                            <Button onClick={this.showAddRecipeBtnHandler} bsStyle="success"
                                     bsSize="large">
                                 Add Recipe
                             </Button>

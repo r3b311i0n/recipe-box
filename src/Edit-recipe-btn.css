@@ -1,0 +1,11 @@
+.Dialog-btn {
+    height: 2.7em;
+    width: 7em;
+}
+
+.Edit-recipe-btn-block {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+    width: 100%;
+}
