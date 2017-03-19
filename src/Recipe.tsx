@@ -27,7 +27,8 @@ export class Recipe extends React.Component<IRecipeProps, IRecipeState> {
     private generateIngredientsList(): JSX.Element {
         const ingredientsArray = this.props.recipeIngredients.split(",");
         const ingredientsList = ingredientsArray.map((value: string, index: number): JSX.Element => {
-            return <ListGroupItem bsStyle="info" key={index.toString()}>{value.trim()}</ListGroupItem>;
+            return <ListGroupItem bsStyle="info" key={index.toString()}
+                                  className="Ingredients">{value.trim()}</ListGroupItem>;
         });
         return <ListGroup>{ingredientsList}<EditRecipeBtn recipeArrayIndexNo={this.props.recipeArrayIndexNo}
                                                           recipeIngredients={this.props.recipeIngredients}

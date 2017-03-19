@@ -87,15 +87,16 @@ export class AddRecipeDialog extends React.Component<IAddRecipeDialogProps, IAdd
                     <h3>Enter Recipe Name and Ingredients</h3>
                 </Modal.Header>
                 <Modal.Body>
-                    <form>
+                    <form className="Add-recipe-form">
                         <FormGroup controlId="addRecipeNameText">
                             <ControlLabel>Recipe Name:</ControlLabel>
-                            <FormControl type="text" placeholder="Enter Recipe Name"
+                            <FormControl className="Add-recipe-form" type="text" placeholder="Enter Recipe Name"
                                          onKeyUp={this.setRecipeName}/>
                         </FormGroup>
                         <FormGroup controlId="recipeIngredientsText">
                             <ControlLabel>Ingredients:</ControlLabel>
-                            <FormControl componentClass="textArea" style={{resize: "none", height: "10em"}}
+                            <FormControl className="Add-recipe-form" componentClass="textArea"
+                                         style={{resize: "none", height: "10em"}}
                                          placeholder="Enter Ingredients" onKeyUp={this.setIngredients}/>
                         </FormGroup>
                     </form>
