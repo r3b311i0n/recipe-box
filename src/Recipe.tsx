@@ -5,8 +5,10 @@ import {EditRecipeBtn} from './Edit-recipe-btn';
 
 export interface IRecipeProps {
     eventKey: string;
+    recipeArrayIndexNo: number;
     recipeName: string;
     recipeIngredients: string;
+    refreshRecipeList: () => void;
 }
 
 interface IRecipeState {
@@ -27,8 +29,10 @@ export class Recipe extends React.Component<IRecipeProps, IRecipeState> {
         const ingredientsList = ingredientsArray.map((value: string, index: number): JSX.Element => {
             return <ListGroupItem bsStyle="info" key={index.toString()}>{value.trim()}</ListGroupItem>;
         });
-        return <ListGroup>{ingredientsList}<EditRecipeBtn recipeIngredients={this.props.recipeIngredients}
-                                                          recipeName={this.props.recipeName}/></ListGroup>;
+        return <ListGroup>{ingredientsList}<EditRecipeBtn recipeArrayIndexNo={this.props.recipeArrayIndexNo}
+                                                          recipeIngredients={this.props.recipeIngredients}
+                                                          recipeName={this.props.recipeName}
+                                                          refreshRecipeList={this.props.refreshRecipeList}/></ListGroup>;
     }
 
     private handleIngredientsVisibilityBtn = (): void => {

@@ -4,8 +4,10 @@ import {EditRecipeDialog} from './Edit-recipe-dialog';
 import './Edit-recipe-btn.css';
 
 export interface IEditRecipeBtnProps {
+    recipeArrayIndexNo: number;
     recipeIngredients: string;
     recipeName: string;
+    refreshRecipeList: () => void;
 }
 
 interface IEditRecipeBtnState {
@@ -29,13 +31,24 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
         this.setState({isEditRecipeDialogVisible: false});
     };
 
+    private deleteRecipeBtnHandler = (): void => {
+        const recipeArray = JSON.parse(localStorage.getItem("RecipeArray"));
+        const newRecipeArray = recipeArray.filter((value: any, index: number) => {
+            return index !== this.props.recipeArrayIndexNo;
+        });
+        localStorage.setItem("RecipeArray", JSON.stringify(newRecipeArray));
+        this.props.refreshRecipeList();
+        this.closeEditRecipe();
+    };
+
     public render(): JSX.Element {
         return (
             <div>
                 <div className="Edit-recipe-btn-block">
                     <Button bsStyle="success" className="Dialog-btn"
                             onClick={this.showEditRecipeBtnHandler}>Edit</Button>
-                    <Button bsStyle="danger" className="Dialog-btn">Delete!</Button>
+                    <Button bsStyle="danger" className="Dialog-btn"
+                            onClick={this.deleteRecipeBtnHandler}>Delete!</Button>
                 </div>
                 <EditRecipeDialog closeEditRecipe={this.closeEditRecipe}
                                   isEditRecipeDialogVisible={this.state.isEditRecipeDialogVisible}

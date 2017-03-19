@@ -39,8 +39,8 @@ export class App extends React.Component<IAppProps, IAppState> {
         const recipeArray = JSON.parse(this.state.recipeString);
         const recipeList = recipeArray.map((value: any, index: number): JSX.Element => {
             return <ListGroupItem key={value["RecipeName"]}>
-                <Recipe eventKey={index.toString()} recipeName={value["RecipeName"]}
-                        recipeIngredients={value["IngredientsList"]}/>
+                <Recipe eventKey={index.toString()} recipeArrayIndexNo={index} recipeName={value["RecipeName"]}
+                        recipeIngredients={value["IngredientsList"]} refreshRecipeList={this.refreshRecipeList}/>
             </ListGroupItem>;
         });
         return <ListGroup componentClass="ul">{recipeList}</ListGroup>;
