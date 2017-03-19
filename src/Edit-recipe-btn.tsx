@@ -25,7 +25,7 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
         };
     }
 
-    private showEditRecipeBtnHandler = (): void => {
+    private handleShowEditRecipeBtn = (): void => {
         this.setState({isEditRecipeDialogVisible: true});
     };
 
@@ -33,7 +33,7 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
         this.setState({isEditRecipeDialogVisible: false});
     };
 
-    private confirmDeleteRecipeBtnHandler = (): void => {
+    private handleConfirmDeleteRecipeBtn = (): void => {
         const recipeArray = JSON.parse(localStorage.getItem("RecipeArray"));
         const newRecipeArray = recipeArray.filter((value: any, index: number) => {
             return index !== this.props.recipeArrayIndexNo;
@@ -43,7 +43,7 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
         this.closeEditRecipe();
     };
 
-    private deleteRecipeBtnHandler = (): void => {
+    private handleDeleteRecipeBtn = (): void => {
         this.setState({isRecipeDeleteConfirmationDialogVisible: true});
     };
 
@@ -56,9 +56,9 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
             <div>
                 <div className="Edit-recipe-btn-block">
                     <Button bsStyle="success" className="Dialog-btn"
-                            onClick={this.showEditRecipeBtnHandler}>Edit</Button>
+                            onClick={this.handleShowEditRecipeBtn}>Edit</Button>
                     <Button bsStyle="danger" className="Dialog-btn"
-                            onClick={this.deleteRecipeBtnHandler}>Delete!</Button>
+                            onClick={this.handleDeleteRecipeBtn}>Delete!</Button>
                 </div>
                 <Modal onHide={this.closeDeleteConfirmationDialog}
                        show={this.state.isRecipeDeleteConfirmationDialogVisible}>
@@ -70,7 +70,7 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
                             <Button bsStyle="success" bsSize="large" className="Dialog-btn"
                                     onClick={this.closeDeleteConfirmationDialog}>No</Button>
                             <Button bsStyle="danger" bsSize="large" className="Dialog-btn"
-                                    onClick={this.confirmDeleteRecipeBtnHandler}>Yes</Button>
+                                    onClick={this.handleConfirmDeleteRecipeBtn}>Yes</Button>
                         </div>
                     </Modal.Body>
                 </Modal>

@@ -17,6 +17,20 @@ export class EditRecipeDialog extends React.Component<IEditRecipeDialogProps, IE
         super(props);
     }
 
+    // private handleAddRecipeDialogBtn = (): void => {
+    //     const recipeObject = {
+    //         "RecipeName": this.state.recipeNameString,
+    //         "IngredientsList": this.state.ingredientsString,
+    //     };
+    //     const localRecipeString = localStorage.getItem("RecipeArray");
+    //     let recipeArray = (localRecipeString) ? JSON.parse(localRecipeString) : [];
+    //     recipeArray.push(recipeObject);
+    //     localStorage.setItem("RecipeArray", JSON.stringify(recipeArray));
+    //     console.log(JSON.parse(localStorage.getItem("RecipeArray")));
+    //     this.props.refreshRecipeList();
+    //     this.closeDialog();
+    // };
+
     public render(): JSX.Element {
         return (
             <Modal onHide={this.props.closeEditRecipe} show={this.props.isEditRecipeDialogVisible}>
