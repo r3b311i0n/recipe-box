@@ -65,7 +65,6 @@ export class AddRecipeDialog extends React.Component<IAddRecipeDialogProps, IAdd
         let recipeArray = (localRecipeString) ? JSON.parse(localRecipeString) : [];
         recipeArray.push(recipeObject);
         localStorage.setItem("RecipeArray", JSON.stringify(recipeArray));
-        console.log(JSON.parse(localStorage.getItem("RecipeArray")));
         this.props.refreshRecipeList();
         this.closeDialog();
     };

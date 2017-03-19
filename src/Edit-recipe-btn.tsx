@@ -76,7 +76,9 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
                 </Modal>
                 <EditRecipeDialog closeEditRecipe={this.closeEditRecipe}
                                   isEditRecipeDialogVisible={this.state.isEditRecipeDialogVisible}
-                                  recipeName={this.props.recipeName} recipeIngredients={this.props.recipeIngredients}/>
+                                  recipeName={this.props.recipeName} recipeIngredients={this.props.recipeIngredients}
+                                  refreshRecipeList={this.props.refreshRecipeList}
+                                  recipeArrayIndexNo={this.props.recipeArrayIndexNo}/>
             </div>
         );
     }
