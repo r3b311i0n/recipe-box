@@ -31,7 +31,7 @@ export class EditRecipeDialog extends React.Component<IEditRecipeDialogProps, IE
                         </FormGroup>
                         <FormGroup controlId="editRecipeIngredientsText">
                             <ControlLabel>Ingredients:</ControlLabel>
-                            <FormControl className="Edit-recipe-form" componentClass="textArea"
+                            <FormControl autoFocus className="Edit-recipe-form" componentClass="textArea"
                                          style={{resize: "none", height: "10em"}}>
                                 {this.props.recipeIngredients}
                             </FormControl>

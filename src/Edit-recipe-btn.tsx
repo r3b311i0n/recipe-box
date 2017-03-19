@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button} from 'react-bootstrap';
+import {Button, Modal} from 'react-bootstrap';
 import {EditRecipeDialog} from './Edit-recipe-dialog';
 import './Edit-recipe-btn.css';
 
@@ -12,6 +12,7 @@ export interface IEditRecipeBtnProps {
 
 interface IEditRecipeBtnState {
     isEditRecipeDialogVisible: boolean;
+    isRecipeDeleteConfirmationDialogVisible: boolean;
 }
 
 export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRecipeBtnState> {
@@ -20,6 +21,7 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
 
         this.state = {
             isEditRecipeDialogVisible: false,
+            isRecipeDeleteConfirmationDialogVisible: false,
         };
     }
 
@@ -31,7 +33,7 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
         this.setState({isEditRecipeDialogVisible: false});
     };
 
-    private deleteRecipeBtnHandler = (): void => {
+    private confirmDeleteRecipeBtnHandler = (): void => {
         const recipeArray = JSON.parse(localStorage.getItem("RecipeArray"));
         const newRecipeArray = recipeArray.filter((value: any, index: number) => {
             return index !== this.props.recipeArrayIndexNo;
@@ -39,6 +41,14 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
         localStorage.setItem("RecipeArray", JSON.stringify(newRecipeArray));
         this.props.refreshRecipeList();
         this.closeEditRecipe();
+    };
+
+    private deleteRecipeBtnHandler = (): void => {
+        this.setState({isRecipeDeleteConfirmationDialogVisible: true});
+    };
+
+    private closeDeleteConfirmationDialog = (): void => {
+        this.setState({isRecipeDeleteConfirmationDialogVisible: false});
     };
 
     public render(): JSX.Element {
@@ -50,6 +60,20 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
                     <Button bsStyle="danger" className="Dialog-btn"
                             onClick={this.deleteRecipeBtnHandler}>Delete!</Button>
                 </div>
+                <Modal onHide={this.closeDeleteConfirmationDialog}
+                       show={this.state.isRecipeDeleteConfirmationDialogVisible}>
+                    <Modal.Header>
+                        <h3>Are you sure you want to delete the recipe for making {this.props.recipeName}?</h3>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="Edit-recipe-btn-block">
+                            <Button bsStyle="success" bsSize="large" className="Dialog-btn"
+                                    onClick={this.closeDeleteConfirmationDialog}>No</Button>
+                            <Button bsStyle="danger" bsSize="large" className="Dialog-btn"
+                                    onClick={this.confirmDeleteRecipeBtnHandler}>Yes</Button>
+                        </div>
+                    </Modal.Body>
+                </Modal>
                 <EditRecipeDialog closeEditRecipe={this.closeEditRecipe}
                                   isEditRecipeDialogVisible={this.state.isEditRecipeDialogVisible}
                                   recipeName={this.props.recipeName} recipeIngredients={this.props.recipeIngredients}/>
