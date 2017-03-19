@@ -1,0 +1,13 @@
+.Edit-recipe-dialog-block {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.Confirm-dialog-btn {
+    width: 12rem;
+}
+
+.Cancel-dialog-btn {
+    width: 12rem;
+}

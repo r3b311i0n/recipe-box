@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {ControlLabel, Form, FormControl, FormGroup, Modal} from 'react-bootstrap';
-import './Edit-recipe-btn.css';
+import {Button, ControlLabel, Form, FormControl, FormGroup, Modal} from 'react-bootstrap';
+import './Edit-recipe-dialog.css';
 
 export interface IEditRecipeDialogProps {
     closeEditRecipe: () => void;
@@ -29,7 +29,18 @@ export class EditRecipeDialog extends React.Component<IEditRecipeDialogProps, IE
                             <ControlLabel>Recipe Name:</ControlLabel>
                             <FormControl type="text" placeholder={this.props.recipeName}/>
                         </FormGroup>
+                        <FormGroup controlId="editRecipeIngredientsText">
+                            <ControlLabel>Ingredients:</ControlLabel>
+                            <FormControl componentClass="textArea" style={{resize: "none", height: "10em"}}>
+                                {this.props.recipeIngredients}
+                            </FormControl>
+                        </FormGroup>
                     </Form>
+                    <div className="Edit-recipe-dialog-block">
+                        <Button bsStyle="success" className="Confirm-dialog-btn">Confirm</Button>
+                        <Button bsStyle="danger" className="Cancel-dialog-btn" onClick={this.props.closeEditRecipe}>
+                            Cancel</Button>
+                    </div>
                 </Modal.Body>
             </Modal>
         );

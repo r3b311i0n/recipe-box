@@ -45,6 +45,5 @@ export class Recipe extends React.Component<IRecipeProps, IRecipeState> {
                 </Panel>
             </div>
         );
-        // todo: create edit and delete buttons and put them in the above panel
     }
 }
