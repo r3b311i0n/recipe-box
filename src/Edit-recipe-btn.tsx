@@ -34,11 +34,11 @@ export class EditRecipeBtn extends React.Component<IEditRecipeBtnProps, IEditRec
     };
 
     private handleConfirmDeleteRecipeBtn = (): void => {
-        const recipeArray = JSON.parse(localStorage.getItem("RecipeArray"));
+        const recipeArray = JSON.parse(localStorage.getItem("_recipe_array"));
         const newRecipeArray = recipeArray.filter((value: any, index: number) => {
             return index !== this.props.recipeArrayIndexNo;
         });
-        localStorage.setItem("RecipeArray", JSON.stringify(newRecipeArray));
+        localStorage.setItem("_recipe_array", JSON.stringify(newRecipeArray));
         this.props.refreshRecipeList();
         this.closeEditRecipe();
     };

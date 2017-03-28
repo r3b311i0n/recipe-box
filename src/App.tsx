@@ -14,7 +14,7 @@ interface IAppState {
 export class App extends React.Component<IAppProps, IAppState> {
     constructor(props: any) {
         super(props);
-        const initialRecipeArray = localStorage.getItem("RecipeArray") ? localStorage.getItem("RecipeArray") : JSON.stringify(
+        const initialRecipeArray = localStorage.getItem("_recipe_array") ? localStorage.getItem("_recipe_array") : JSON.stringify(
                 [
                     {
                         "RecipeName": "Boiled Egg",
@@ -29,7 +29,7 @@ export class App extends React.Component<IAppProps, IAppState> {
                         "IngredientsList": "Sugar, Spice, Everything Nice"
                     }
                 ]);
-        localStorage.setItem("RecipeArray", initialRecipeArray);
+        localStorage.setItem("_recipe_array", initialRecipeArray);
         this.state = {
             recipeString: initialRecipeArray,
         }
@@ -47,7 +47,7 @@ export class App extends React.Component<IAppProps, IAppState> {
     }
 
     protected refreshRecipeList = (): void => {
-        this.setState({recipeString: localStorage.getItem("RecipeArray")});
+        this.setState({recipeString: localStorage.getItem("_recipe_array")});
     };
 
     public render(): JSX.Element {

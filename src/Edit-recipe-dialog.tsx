@@ -77,13 +77,13 @@ export class EditRecipeDialog extends React.Component<IEditRecipeDialogProps, IE
             "RecipeName": recipeNameString,
             "IngredientsList": recipeIngredientsString,
         };
-        let recipeArray = JSON.parse(localStorage.getItem("RecipeArray"));
+        let recipeArray = JSON.parse(localStorage.getItem("_recipe_array"));
         recipeArray.forEach((elem: any, index: number, array: any[]) => {
             if (index === this.props.recipeArrayIndexNo) {
                 array[index] = recipeObject;
             }
         });
-        localStorage.setItem("RecipeArray", JSON.stringify(recipeArray));
+        localStorage.setItem("_recipe_array", JSON.stringify(recipeArray));
         this.props.refreshRecipeList();
         this.closeDialog();
     };
